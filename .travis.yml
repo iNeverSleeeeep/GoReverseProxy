@@ -1,0 +1,15 @@
+language: go
+go:
+  - 1.13
+script:
+  - go build
+notifications:
+  email:
+    recipients:
+      - 362761534@qq.com
+    on_success: change
+    on_failure: always
+git:
+    submodules: false
+env:
+  - GO111MODULE=on

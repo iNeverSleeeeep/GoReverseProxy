@@ -1,0 +1,8 @@
+defaultport: 10800
+proxylist:
+  -
+    url: test1.local.com
+    port: 10801
+  -
+    url: test2.local.com
+    port: 10802
