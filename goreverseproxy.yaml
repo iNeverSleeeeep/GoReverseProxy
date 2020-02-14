@@ -1,8 +1,8 @@
-default: 12356.scwjxx.cn
-proxylist:
+default: www.baidu.com
+proxies:
   -
-    rawurl: test1.local.com
-    proxyurl: 127.0.0.1:10801
+    raw: test1.local.com
+    proxy: 127.0.0.1:10801
   -
-    rawurl: test2.local.com
-    proxyurl: 127.0.0.1:10802
+    raw: test2.local.com
+    proxy: 127.0.0.1:10802

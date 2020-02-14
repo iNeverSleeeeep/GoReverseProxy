@@ -14,10 +14,10 @@ import (
 	"gopkg.in/yaml.v3"
 )
 
-// Proxy is url port pair
+// Proxy host proxy
 type Proxy struct {
-	RawURL   string
-	ProxyURL string
+	Raw   string
+	Proxy string
 }
 
 // SSL used for https
@@ -28,9 +28,9 @@ type SSL struct {
 
 // ProxyConfig Config
 type ProxyConfig struct {
-	ProxyList []Proxy
-	SSL       *SSL
-	Default   string
+	Proxies []Proxy
+	SSL     *SSL
+	Default string
 }
 
 var path = flag.String("config", "", "reverse proxy config file path with yaml format")
@@ -67,18 +67,18 @@ func main() {
 // ServeHTTP handle http/https request
 func ServeHTTP(w http.ResponseWriter, r *http.Request) {
 	defer CatchPanic()
-	proxyurl := config.Default
-	for _, proxy := range config.ProxyList {
-		if strings.HasPrefix(r.URL.Hostname(), proxy.RawURL) {
-			proxyurl = proxy.ProxyURL
+	host := config.Default
+	for _, proxy := range config.Proxies {
+		if r.Host == proxy.Raw {
+			host = proxy.Proxy
 			break
 		}
 	}
-	remote, err := url.Parse(fmt.Sprintf("http://%s/", proxyurl))
+	remote, err := url.Parse(fmt.Sprintf("http://%s/", host))
 	if err != nil {
 		panic(err)
 	}
-	proxy := NewSingleHostReverseProxy(remote, proxyurl)
+	proxy := NewSingleHostReverseProxy(remote, host)
 	proxy.ServeHTTP(w, r)
 }
 
