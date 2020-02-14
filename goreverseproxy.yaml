@@ -1,8 +1,8 @@
-defaultport: 10800
+default: 12356.scwjxx.cn
 proxylist:
   -
-    url: test1.local.com
-    port: 10801
+    rawurl: test1.local.com
+    proxyurl: 127.0.0.1:10801
   -
-    url: test2.local.com
-    port: 10802
+    rawurl: test2.local.com
+    proxyurl: 127.0.0.1:10802
