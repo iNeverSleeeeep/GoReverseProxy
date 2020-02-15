@@ -1,4 +1,4 @@
-module github.com/iNeverSleeeeep/GoReverseProxy
+module github.com/iNeverSleeeeep/gorproxy
 
 go 1.12
 
