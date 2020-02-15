@@ -1,0 +1,61 @@
+#!/bin/bash
+
+start() {
+    gorproxy &
+}
+
+stop() {
+    pkill gorproxy 2>/dev/null
+}
+
+status() {
+    if [ -n "$(ps -ef | grep gorproxy | grep -v grep)" ]; then
+        echo "gorproxy is running"
+    else
+        echo "gorproxy stopped"
+    fi
+}
+uninstall() {
+    stop
+    sleep 1
+    rm -f /etc/gorproxy.yaml
+    rm -f /etc/init.d/gorproxy
+    rm -f /usr/bin/gorproxy
+
+    echo "uninstall successful"
+}
+
+case "$1" in
+    start)
+        start
+        sleep 1
+        status
+    ;;
+
+    stop)
+        stop
+        status
+    ;;
+
+    restart)
+        stop
+        status
+        echo "gorproxy restarting..."
+        sleep 1
+        start
+        status
+    ;;
+
+    status)
+        status
+    ;;
+
+    uninstall)
+        uninstall
+    ;;
+
+    *)
+        echo $"Usage: $0 {start|stop|restart|status|uninstall}"
+        exit 1
+    ;;
+esac
