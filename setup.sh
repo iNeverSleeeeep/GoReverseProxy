@@ -7,4 +7,3 @@ touch /etc/init.d/gorproxy
 echo "gorproxy &" >> /etc/init.d/gorproxy
 chmod 777 /etc/init.d/gorproxy
 cp -f ./gorproxy.yaml /etc/gorproxy.yaml
-service gorproxy start
