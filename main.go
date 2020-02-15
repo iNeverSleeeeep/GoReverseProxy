@@ -9,6 +9,7 @@ import (
 	"net/http/httputil"
 	"net/url"
 	"os"
+	"runtime"
 	"strings"
 
 	"gopkg.in/yaml.v3"
@@ -33,10 +34,11 @@ type ProxyConfig struct {
 	Default string
 }
 
-var path = flag.String("config", "", "reverse proxy config file path with yaml format")
+var path = flag.String("config", "/etc/gorproxy.yaml", "reverse proxy config file path with yaml format")
 var config *ProxyConfig
 
 func main() {
+	runtime.GOMAXPROCS(1)
 	config = &ProxyConfig{}
 	flag.Parse()
 	if path == nil || len(*path) == 0 {
